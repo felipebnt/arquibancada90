@@ -14,6 +14,7 @@ interface Jersey {
   season: string;
   type: string;
   category: string;
+  price?: number;
   composition?: string;
   technology?: string;
   imageFront?: string;
@@ -155,9 +156,14 @@ export function ProductDetail({ jersey, onClose }: ProductDetailProps) {
               <h2 className="text-2xl sm:text-3xl font-bold text-white mb-2">
                 {jersey.name}
               </h2>
-              <p className="text-lg text-white/50 mb-6">
+              <p className="text-lg text-white/50 mb-2">
                 {jersey.club} • {jersey.season}
               </p>
+              {jersey.price && (
+                <p className="text-2xl font-bold text-[#00FF9C] mb-6">
+                  R$ {jersey.price.toFixed(2).replace('.', ',')}
+                </p>
+              )}
 
               {/* Technical Details */}
               <div className="space-y-4 mb-8">

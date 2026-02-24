@@ -17,6 +17,7 @@ interface Jersey {
   season: string;
   type: string;
   category: string;
+  price?: number;
   composition?: string;
   technology?: string;
   imageFront?: string;

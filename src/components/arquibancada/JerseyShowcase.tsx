@@ -10,6 +10,7 @@ interface Jersey {
   season: string;
   type: string;
   category: string;
+  price?: number;
   imageFront?: string;
   isFeatured?: boolean;
 }

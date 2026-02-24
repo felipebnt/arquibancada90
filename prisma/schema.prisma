@@ -17,7 +17,8 @@ model Jersey {
   club        String
   season      String
   category    String   // "Lançamentos", "Times Nacionais", "Times Europeus"
-  type        String   // "Home", "Away", "Third"
+  type        String   // "Home", "Away", "Third", "Treino", "Goleiro"
+  price       Float?   // Price in BRL
   composition String?  // Material composition
   technology  String?  // Fabric technology
   imageFront  String?  // URL to front image

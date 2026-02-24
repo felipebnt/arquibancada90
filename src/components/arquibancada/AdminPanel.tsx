@@ -48,6 +48,7 @@ interface Jersey {
   season: string;
   type: string;
   category: string;
+  price?: number;
   composition?: string;
   technology?: string;
   imageFront?: string;
@@ -82,6 +83,7 @@ export function AdminPanel({
     season: '',
     type: 'Home',
     category: 'Times Nacionais',
+    price: '' as string,
     composition: '',
     technology: '',
     imageFront: '',
@@ -98,6 +100,7 @@ export function AdminPanel({
       season: '',
       type: 'Home',
       category: 'Times Nacionais',
+      price: '',
       composition: '',
       technology: '',
       imageFront: '',
@@ -114,10 +117,14 @@ export function AdminPanel({
     setIsSubmitting(true);
     
     try {
+      const submitData = {
+        ...formData,
+        price: formData.price ? parseFloat(formData.price) : null,
+      };
       if (editingJersey) {
-        await onUpdateJersey(editingJersey.id, formData);
+        await onUpdateJersey(editingJersey.id, submitData);
       } else {
-        await onAddJersey(formData);
+        await onAddJersey(submitData);
       }
       setIsAddDialogOpen(false);
       resetForm();
@@ -136,6 +143,7 @@ export function AdminPanel({
       season: jersey.season,
       type: jersey.type,
       category: jersey.category,
+      price: jersey.price ? jersey.price.toString() : '',
       composition: jersey.composition || '',
       technology: jersey.technology || '',
       imageFront: jersey.imageFront || '',
@@ -458,6 +466,20 @@ export function AdminPanel({
                   </Select>
                 </div>
 
+                {/* Price */}
+                <div className="space-y-2">
+                  <Label htmlFor="price">Preço (R$)</Label>
+                  <Input
+                    id="price"
+                    type="number"
+                    step="0.01"
+                    min="0"
+                    value={formData.price}
+                    onChange={(e) => setFormData({ ...formData, price: e.target.value })}
+                    placeholder="Ex: 299.90"
+                  />
+                </div>
+
                 {/* Composition */}
                 <div className="space-y-2">
                   <Label htmlFor="composition">Composição do Tecido</Label>
@@ -629,6 +651,18 @@ export function AdminPanel({
                     <SelectItem value="Times Europeus">Times Europeus</SelectItem>
                   </SelectContent>
                 </Select>
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="dialog-price">Preço (R$)</Label>
+                <Input
+                  id="dialog-price"
+                  type="number"
+                  step="0.01"
+                  min="0"
+                  value={formData.price}
+                  onChange={(e) => setFormData({ ...formData, price: e.target.value })}
+                  placeholder="299.90"
+                />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="dialog-imageFront">URL da Imagem</Label>

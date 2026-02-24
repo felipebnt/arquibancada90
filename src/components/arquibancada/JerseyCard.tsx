@@ -10,6 +10,7 @@ interface JerseyCardProps {
   club: string;
   season: string;
   type: string;
+  price?: number;
   imageFront?: string;
   isFeatured?: boolean;
   onClick: () => void;
@@ -21,6 +22,7 @@ export function JerseyCard({
   club,
   season,
   type,
+  price,
   imageFront,
   isFeatured,
   onClick,
@@ -106,9 +108,11 @@ export function JerseyCard({
               <Badge variant="outline" className="text-xs border-white/10 text-white/70">
                 {type}
               </Badge>
-              <Badge className="text-xs bg-[#00FF9C]/10 text-[#00FF9C] border-[#00FF9C]/20">
-                Atual
-              </Badge>
+              {price && (
+                <span className="text-xs font-bold text-[#00FF9C]">
+                  R$ {price.toFixed(2).replace('.', ',')}
+                </span>
+              )}
             </div>
           </div>
         </div>
